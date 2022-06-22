@@ -2,7 +2,7 @@
 
 process.env.SECRET = "TEST_SECRET";
 
-const { db } = require('../../../../src/auth/models');
+const { sequelize } = require('../../../../src/auth/models');
 const supertest = require('supertest');
 const server = require('../../../../src/server.js').server;
 
@@ -14,10 +14,10 @@ let userData = {
 let accessToken = null;
 
 beforeAll(async () => {
-  await db.sync();
+  await sequelize.sync();
 });
 afterAll(async () => {
-  await db.drop();
+  await sequelize.drop();
 });
 
 describe('Auth Router', () => {
