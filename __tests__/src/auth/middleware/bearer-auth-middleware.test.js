@@ -1,6 +1,6 @@
 'use strict';
 
-process.env.SECRET = "TEST_SECRET";
+process.env.SECRET = 'TEST_SECRET';
 
 const bearer = require('../../../../src/auth/middleware/bearer.js');
 const { sequelize, users } = require('../../../../src/auth/models/index.js');
