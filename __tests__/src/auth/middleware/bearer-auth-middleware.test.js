@@ -3,7 +3,7 @@
 process.env.SECRET = "TEST_SECRET";
 
 const bearer = require('../../../../src/auth/middleware/bearer.js');
-const { db, users } = require('../../../../src/auth/models/index.js');
+const { sequelize, users } = require('../../../../src/auth/models/index.js');
 const jwt = require('jsonwebtoken');
 
 let userInfo = {
@@ -12,11 +12,11 @@ let userInfo = {
 
 // Pre-load our database with fake users
 beforeAll(async () => {
-  await db.sync();
+  await sequelize.sync();
   await users.create(userInfo.admin);
 });
 afterAll(async () => {
-  await db.drop();
+  await sequelize.drop();
 });
 
 describe('Auth Middleware', () => {

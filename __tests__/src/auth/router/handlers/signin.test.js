@@ -2,15 +2,15 @@
 
 process.env.SECRET = "TEST_SECRET";
 
-const { db, users } = require('../../../../../src/auth/models');
+const { sequelize, users } = require('../../../../../src/auth/models');
 const { handleSignin } = require('../../../../../src/auth/router/handlers.js');
 
 beforeAll(async () => {
-  await db.sync();
+  await sequelize.sync();
   await users.create({ username: 'test', password: 'test' });
 });
 afterAll(async () => {
-  await db.drop();
+  await sequelize.drop();
 });
 
 describe('Testing the signin handler', () => {
