@@ -4,17 +4,24 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // require('dotenv').config();
 
-const SECRET = process.env.API_SECRET || 'ThisIsMySecret';
-//const SECRET = process.env.SECRET || 'TEST_SECRET';
+// const SECRET = process.env.API_SECRET || 'ThisIsMySecret';
+const SECRET = process.env.SECRET || 'TEST_SECRET';
 
 const userSchema = (sequelize, DataTypes) => {
   const model = sequelize.define('User', {
-    username: { type: DataTypes.STRING, allowNull: false, unique: true },
-    password: { type: DataTypes.STRING, allowNull: false, },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     token: {
       type: DataTypes.VIRTUAL,
       get() {
-        return jwt.sign({ username: this.username }, SECRET);
+        return jwt.sign({ username: this.username }, SECRET, { expiresIn: '900000' });
       },
       set(payload) {
         return jwt.sign(payload, SECRET);
